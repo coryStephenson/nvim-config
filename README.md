@@ -26,8 +26,13 @@ Source: [How can I copy and paste outside of Neovim?](https://askubuntu.com/ques
 
 In order to be able to paste text copied from Neovim to any app, you have to copy the text to the system clipboard. You can do that as follows:
 
+    
     Install a clipboard tool, because, as indicated in your screenshot, you don't have one installed.
 
+        Indicate which type of graphics server session you're on by:
+
+        echo $XDG_SESSION_TYPE
+        
         If you are on an Xorg session, you may install either xsel or xclip by running:
 
         sudo apt install xsel
