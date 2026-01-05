@@ -58,3 +58,35 @@ To make things easier, you can also have the text you copy in Neovim always copi
 set clipboard=unnamedplus
 
 If you are using the Lua API for configuring Neovim, you can achieve the same using the command in kkvamshee's answer.
+
+## Building Neovim from source
+
+Source: [Build Neovim from source](https://neovim.io/doc2/build/)
+
+```console
+1 mkdir Git-Repos
+2 cd Git_Repos/
+3 sudo apt update
+4 sudo apt-get install ninja-build gettext cmake curl build-essential git
+5 git clone https://github.com/neovim/neovim
+6 cd neovim
+7 git checkout stable
+8 make CMAKE_BUILD_TYPE=RelWithDebInfo
+9 make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim"
+10 cd build && cpack -G DEB && sudo dpkg -i nvim-linux-x86_64.deb
+11 export PATH="$HOME/neovim/bin:$PATH"
+```
+
+### Uninstall
+
+There is a CMake target to uninstall after make install:
+
+```console
+sudo cmake --build build/ --target uninstall
+```
+
+Alternatively, just delete the CMAKE_INSTALL_PREFIX artifacts:
+
+```console
+sudo rm /home/cory/neovim
+```
