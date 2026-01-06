@@ -6,6 +6,7 @@ vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
+
 vim.g.mapleader = " "
 
 -- lazy package manager
@@ -27,39 +28,39 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   { "EdenEast/nightfox.nvim" },
-  { "nvim-telescope/telescope.nvim", tag = '0.1.8', dependencies = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep" }},
-  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
-
+  { "nvim-telescope/telescope.nvim",
+    tag = '0.1.8',
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
   {
-     "mrcjkb/rustaceanvim",
-     version = '^6', -- Recommended
-     lazy = false, -- This plugin is already lazy
-}
-
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  config = function()
+    require("nvim-treesitter.config").setup({
+      ensure_installed = {"lua", "rust", "python"},
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
+  end
+},
+  {
+    "mrcjkb/rustaceanvim",
+    version = '^6',
+    lazy = false,
+  }
 }
 
 local opts = {}
-
 require("lazy").setup(plugins, opts)
+
+-- Telescope keymaps
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 
-local config = require("nvim-treesitter.configs")
-config.setup({
-  ensure_installed = {"lua"},
-  highlight = { enable = true },
-  indent = {enable = true },
-})
-
--- setup must be called before loading
+-- Nightfox theme
 require("nightfox.config").set_fox("duskfox")
 require("nightfox").load()
 
 -- Background
 vim.o.background = "dark"
-
-
-
-
-
