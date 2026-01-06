@@ -90,3 +90,10 @@ Alternatively, just delete the CMAKE_INSTALL_PREFIX artifacts:
 ```console
 sudo rm /home/cory/neovim
 ```
+
+### Installing Node.js for tree-sitter-cli
+
+```console
+sudo apt install nodejs npm
+sudo npm install -g tree-sitter-cli
+```
